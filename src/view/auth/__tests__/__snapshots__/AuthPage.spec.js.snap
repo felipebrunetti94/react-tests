@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`View :: Auth :: AuthPage matches snapshot 1`] = `
+<div
+  className="auth-page"
+>
+  <div
+    className="container page"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-md-6 offset-md-3 col-xs-12"
+      >
+        <h1
+          className="text-xs-center"
+        >
+          test
+        </h1>
+        <p
+          className="text-xs-center"
+        >
+          <span>
+            link
+          </span>
+        </p>
+        <form>
+          <fieldset
+            className="form-group"
+          >
+            <input
+              className="form-control form-control-lg"
+              data-testid="input-username"
+              name="username"
+              placeholder="Your Name"
+              type="text"
+              value=""
+            />
+          </fieldset>
+          <fieldset
+            className="form-group"
+          >
+            <input
+              className="form-control form-control-lg"
+              data-testid="input-email"
+              name="email"
+              placeholder="Email"
+              type="text"
+              value=""
+            />
+          </fieldset>
+          <fieldset
+            className="form-group"
+          >
+            <input
+              className="form-control form-control-lg"
+              data-testid="input-password"
+              name="password"
+              placeholder="Password"
+              type="password"
+              value=""
+            />
+          </fieldset>
+          <button
+            className="btn btn-lg btn-primary pull-xs-right"
+            type="submit"
+          >
+            test
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;
