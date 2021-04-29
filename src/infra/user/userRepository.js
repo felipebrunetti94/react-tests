@@ -11,18 +11,6 @@ const makeUserRepository = ({ conduitService }) => ({
 
     return data.user;
   },
-
-  async getByToken({ token }) {
-    const { data } = await conduitService.authGet("user", token);
-    return data.user;
-  },
-
-  async update(updadatedUser, { token }) {
-    const { data } = await conduitService.authPut("user", token, {
-      user: updadatedUser,
-    });
-    return data.user;
-  },
 });
 
 export default makeUserRepository;
