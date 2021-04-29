@@ -1,8 +1,9 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import useAuthContext from "../../state/auth/useAuth";
+import { AuthContext } from "../../state/auth/useAuth";
 
 const Header = () => {
-  const { loggedIn, onSignOut } = useAuthContext();
+  const { loggedIn, onSignOut } = useContext(AuthContext);
   return (
     <header>
       <nav className="navbar navbar-light">

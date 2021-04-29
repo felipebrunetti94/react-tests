@@ -1,8 +1,9 @@
+import { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import useAuthContext from "../../state/auth/useAuth";
+import { AuthContext } from "../../state/auth/useAuth";
 
 const PublicOnlyRoute = ({ component: Component, ...rest }) => {
-  const { loggedIn } = useAuthContext({});
+  const { loggedIn } = useContext(AuthContext);
   return (
     <Route
       {...rest}

@@ -1,8 +1,9 @@
-import useAuthContext from "../../state/auth/useAuth";
+import { useContext } from "react";
+import { AuthContext } from "../../state/auth/useAuth";
 import Banner from "./Banner";
 
 const HomePage = () => {
-  const { user, loggedIn } = useAuthContext();
+  const { user, loggedIn } = useContext(AuthContext);
   return (
     <div className="home-page">
       {!loggedIn && <Banner />}

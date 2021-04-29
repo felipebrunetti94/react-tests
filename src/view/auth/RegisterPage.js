@@ -2,7 +2,8 @@
 
 import AuthPage from "./AuthPage";
 import { Link } from "react-router-dom";
-import useAuthContext from "../../state/auth/useAuth";
+import { AuthContext } from "../../state/auth/useAuth";
+import { useContext } from "react";
 
 const RegisterPage = () => {
   const {
@@ -11,7 +12,7 @@ const RegisterPage = () => {
     authInfo,
     updateAuthInfo,
     isLoading,
-  } = useAuthContext();
+  } = useContext(AuthContext);
   return (
     <AuthPage
       onSubmit={onRegisterUser}
