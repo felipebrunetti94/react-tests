@@ -1,16 +1,16 @@
-import makeSigninUSer from "../signinUser";
+import makeLoginUser from "../loginUser";
 
-describe("App :: User :: signinUser", () => {
+describe("App :: User :: loginUser", () => {
   let registerUSer;
   let mockUserRepository;
   const userAuth = "userAuth";
 
-  it("passes the user auth to the user repository", async () => {
+  it("passa as infos do usuário para o userRepository", async () => {
     mockUserRepository = {
       authBy: jest.fn(),
     };
 
-    registerUSer = makeSigninUSer({
+    registerUSer = makeLoginUser({
       userRepository: mockUserRepository,
     });
 
@@ -19,15 +19,15 @@ describe("App :: User :: signinUser", () => {
     expect(mockUserRepository.authBy).toBeCalledWith(userAuth);
   });
 
-  describe("when it succeeds", () => {
+  describe("quando suceder", () => {
     beforeEach(() => {
       mockUserRepository = {
         authBy: jest.fn(() => Promise.resolve("signedUser")),
       };
-      registerUSer = makeSigninUSer({ userRepository: mockUserRepository });
+      registerUSer = makeLoginUser({ userRepository: mockUserRepository });
     });
 
-    it("call onSuccess callback with the signed user", async () => {
+    it("chama o onSuccess callback com o usuário", async () => {
       const onSuccess = jest.fn();
       const onError = jest.fn();
 
@@ -38,15 +38,15 @@ describe("App :: User :: signinUser", () => {
     });
   });
 
-  describe("when it fails", () => {
+  describe("quando falhar", () => {
     beforeEach(() => {
       mockUserRepository = {
         authBy: jest.fn(() => Promise.reject(new Error("error!"))),
       };
-      registerUSer = makeSigninUSer({ userRepository: mockUserRepository });
+      registerUSer = makeLoginUser({ userRepository: mockUserRepository });
     });
 
-    it("call onError callback with the error", async () => {
+    it("chama o onError callback com o erro", async () => {
       const onSuccess = jest.fn();
       const onError = jest.fn();
 
