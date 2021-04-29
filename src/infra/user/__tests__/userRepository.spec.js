@@ -5,12 +5,11 @@ describe("Infra :: User :: userRepository", () => {
   let conduitService;
   const successResponse = { data: { user: "user" } };
   const errorResponse = { errors: ["nope!", "ohno!"] };
-  const user = { auth: "auth" };
 
   describe("#add", () => {
-    it("uses the conduit service to make the request", async () => {
+    it("usa a service do conduit service para fazer a request", async () => {
       conduitService = {
-        post: jest.fn().mockReturnValue(Promise.resolve(successResponse)),
+        post: jest.fn().mockResolvedValue(successResponse),
       };
       userRepository = makeUserRepository({ conduitService });
       await userRepository.add("user");
@@ -19,23 +18,22 @@ describe("Infra :: User :: userRepository", () => {
       });
     });
 
-    describe("when success", () => {
-      it("resolves with user", () => {
+    describe("quando suceder", () => {
+      it("resolves com o usuario", () => {
         conduitService = {
-          post: jest.fn().mockReturnValue(Promise.resolve(successResponse)),
+          post: jest.fn().mockResolvedValue(successResponse),
         };
+
         userRepository = makeUserRepository({ conduitService });
 
-        return expect(userRepository.add("user")).resolves.toEqual({
-          user: "user",
-        });
+        return expect(userRepository.add("user")).resolves.toEqual("user");
       });
     });
 
-    describe("when fails", () => {
-      it("rejects with errors", () => {
+    describe("quando falhar", () => {
+      it("rejects com error", () => {
         conduitService = {
-          post: jest.fn().mockReturnValue(Promise.reject(errorResponse)),
+          post: jest.fn().mockRejectedValue(errorResponse),
         };
         userRepository = makeUserRepository({ conduitService });
 
@@ -47,9 +45,9 @@ describe("Infra :: User :: userRepository", () => {
   });
 
   describe("#authBy", () => {
-    it("uses the conduit service to make the request", async () => {
+    it("usa a service do conduit service para fazer a request", async () => {
       conduitService = {
-        post: jest.fn().mockReturnValue(Promise.resolve(successResponse)),
+        post: jest.fn().mockResolvedValue(successResponse),
       };
       userRepository = makeUserRepository({ conduitService });
       await userRepository.authBy("userInfo");
@@ -58,103 +56,27 @@ describe("Infra :: User :: userRepository", () => {
       });
     });
 
-    describe("when success", () => {
-      it("resolves with user", () => {
+    describe("quando suceder", () => {
+      it("resolves com usuário", () => {
         conduitService = {
-          post: jest.fn().mockReturnValue(Promise.resolve(successResponse)),
+          post: jest.fn().mockResolvedValue(successResponse),
         };
         userRepository = makeUserRepository({ conduitService });
 
-        return expect(userRepository.authBy("userInfo")).resolves.toEqual({
-          user: "user",
-        });
+        return expect(userRepository.authBy("userInfo")).resolves.toEqual(
+          "user"
+        );
       });
     });
 
-    describe("when fails", () => {
-      it("rejects with errors", () => {
+    describe("quando falhar", () => {
+      it("rejects com error", () => {
         conduitService = {
-          post: jest.fn().mockReturnValue(Promise.reject(errorResponse)),
+          post: jest.fn().mockRejectedValue(errorResponse),
         };
         userRepository = makeUserRepository({ conduitService });
 
         return expect(userRepository.authBy("user")).rejects.toEqual({
-          errors: ["nope!", "ohno!"],
-        });
-      });
-    });
-  });
-
-  describe("#getByToken", () => {
-    it("uses the conduit service to make the request", async () => {
-      conduitService = {
-        authGet: jest.fn().mockReturnValue(Promise.resolve(successResponse)),
-      };
-      userRepository = makeUserRepository({ conduitService });
-      await userRepository.getByToken(user);
-      expect(conduitService.authGet).toHaveBeenCalledWith("user", "auth");
-    });
-
-    describe("when success", () => {
-      it("resolves with user", () => {
-        conduitService = {
-          authGet: jest.fn().mockReturnValue(Promise.resolve(successResponse)),
-        };
-        userRepository = makeUserRepository({ conduitService });
-
-        return expect(userRepository.getByToken(user)).resolves.toEqual({
-          user: "user",
-        });
-      });
-    });
-
-    describe("when fails", () => {
-      it("rejects with errors", () => {
-        conduitService = {
-          authGet: jest.fn().mockReturnValue(Promise.reject(errorResponse)),
-        };
-        userRepository = makeUserRepository({ conduitService });
-
-        return expect(userRepository.getByToken(user)).rejects.toEqual({
-          errors: ["nope!", "ohno!"],
-        });
-      });
-    });
-  });
-
-  describe("#update", () => {
-    it("uses the conduit service to make the request", async () => {
-      conduitService = {
-        authPut: jest.fn().mockReturnValue(Promise.resolve(successResponse)),
-      };
-      userRepository = makeUserRepository({ conduitService });
-      await userRepository.update("editedUser", user);
-      expect(conduitService.authPut).toHaveBeenCalledWith("user", "auth", {
-        user: "editedUser",
-      });
-    });
-
-    describe("when success", () => {
-      it("resolves with user", () => {
-        conduitService = {
-          authPut: jest.fn().mockReturnValue(Promise.resolve(successResponse)),
-        };
-        userRepository = makeUserRepository({ conduitService });
-
-        return expect(userRepository.update("user", user)).resolves.toEqual({
-          user: "user",
-        });
-      });
-    });
-
-    describe("when fails", () => {
-      it("rejects with errors", () => {
-        conduitService = {
-          authPut: jest.fn().mockReturnValue(Promise.reject(errorResponse)),
-        };
-        userRepository = makeUserRepository({ conduitService });
-
-        return expect(userRepository.update("user", user)).rejects.toEqual({
           errors: ["nope!", "ohno!"],
         });
       });
