@@ -2,22 +2,8 @@ import { fireEvent, render } from "@testing-library/react";
 import AuthPage from "../AuthPage";
 
 describe("View :: Auth :: AuthPage", () => {
-  it("matches snapshot", () => {
-    const props = {
-      title: "test",
-      showUsername: true,
-      onSubmit: () => {},
-      isLoading: false,
-      error: {},
-      updateAuthInfo: () => {},
-      authInfo: {},
-    };
-    const { container } = render(<AuthPage {...props} />);
-    expect(container.firstChild).toMatchSnapshot();
-  });
-
-  describe("when click on submit button", () => {
-    it("call on submit with Auth Info", () => {
+  describe("quando clica no botão submit", () => {
+    it("passa para o onSubmit as info do usuário", () => {
       const onSubmit = jest.fn();
       const authInfo = "auth info";
       const props = {
@@ -29,14 +15,11 @@ describe("View :: Auth :: AuthPage", () => {
         updateAuthInfo: () => {},
         authInfo,
       };
-      const { getByRole } = render(<AuthPage {...props} />);
-      fireEvent.click(getByRole("button", { type: "submit" }));
-      expect(onSubmit).toHaveBeenCalledWith(authInfo);
     });
   });
 
-  describe("when update field", () => {
-    it("call Update Auth Info with name and value of updated field", () => {
+  describe("quando atualiza um campo", () => {
+    it("chama o  Update Auth Info com nome e valor do campo atualizado", () => {
       const updateAuthInfo = jest.fn();
       const props = {
         title: "test",
@@ -47,20 +30,11 @@ describe("View :: Auth :: AuthPage", () => {
         updateAuthInfo,
         authInfo: {},
       };
-      const { getByTestId } = render(<AuthPage {...props} />);
-
-      fireEvent.change(getByTestId("input-username"), {
-        target: {
-          value: "text",
-        },
-      });
-
-      expect(updateAuthInfo).toHaveBeenCalledWith({ username: "text" });
     });
   });
 
-  describe("when receive Show User Name", () => {
-    it("shows username field", () => {
+  describe("quando receber a prop showUserName", () => {
+    it("mostra o campo username", () => {
       const props = {
         title: "test",
         showUsername: true,
@@ -70,13 +44,11 @@ describe("View :: Auth :: AuthPage", () => {
         updateAuthInfo: () => {},
         authInfo: {},
       };
-      const { getByTestId } = render(<AuthPage {...props} />);
-      expect(getByTestId("input-username")).toBeInTheDocument();
     });
   });
 
-  describe("when Is Loading", () => {
-    it("submit button is disabled", () => {
+  describe("quando estiver em loading", () => {
+    it("o botão submit deve estar desabilitado", () => {
       const props = {
         title: "test",
         showUsername: true,
@@ -86,14 +58,11 @@ describe("View :: Auth :: AuthPage", () => {
         updateAuthInfo: () => {},
         authInfo: {},
       };
-      const { getByRole } = render(<AuthPage {...props} />);
-
-      expect(getByRole("button", { type: "submit" })).toBeDisabled();
     });
   });
 
-  describe("when receive Errors", () => {
-    it("show error list", () => {
+  describe("quando recebe a prop error", () => {
+    it("deve mostrar o erro", () => {
       const props = {
         title: "test",
         showUsername: true,
@@ -103,9 +72,6 @@ describe("View :: Auth :: AuthPage", () => {
         updateAuthInfo: () => {},
         authInfo: {},
       };
-      const { getByText } = render(<AuthPage {...props} />);
-
-      expect(getByText("ohno!")).toBeInTheDocument();
     });
   });
 });
