@@ -1,5 +1,3 @@
-// @ts-check
-
 import AuthPage from "./AuthPage";
 import { Link } from "react-router-dom";
 import useAuthContext from "../../state/auth/useAuth";
